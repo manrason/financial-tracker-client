@@ -1,8 +1,24 @@
-<div><span>id: </span>{{expense.expenseId}}</div>
+<h2>My Expenses</h2>
+
 <div>
-    <label for="name">Expense name: </label>
-  <input id="name" [(ngModel)]="expense.name" placeholder="name">
+  <label for="new-expense">Expense name: </label>
+  <input id="new-expense" #expenseName />
+
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button type="button" class="add-button" (click)="add(expenseName.value); expenseName.value=''">
+    Add Expense
+  </button>
 </div>
-<div><span>amount: </span>{{expense.amount}}</div>
+
+<ul class="expenses">
+  <li *ngFor="let expense of expenses">
+    <a routerLink="/get">
+      <span class="badge">{{expense.expenseId}}</span> {{expense.name}}
+      <div><span>amount: </span>{{expense.amount}}</div>
 <div><span>creationDate: </span>{{expense.creationDate}}</div>
 <div><span>comments: </span>{{expense.comments}}</div>
+    </a>
+    <button type="button" class="delete" title="delete expense"
+      (click)="delete(expense)">x</button>
+  </li>
+</ul>
